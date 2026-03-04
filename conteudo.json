@@ -24,16 +24,31 @@
   ],
   "services": [
     {
-      "image": "imagem-sofa.jpg",
-      "title": "Sofás"
+      "title": "Sofás",
+      "images": [
+        {
+          "image": "imagem-sofa.jpg"
+        },
+        {
+          "image": "imagem-sofa-2.jpg"
+        }
+      ]
     },
     {
-      "image": "imagem-colchao.jpg",
-      "title": "Colchões"
+      "title": "Colchões",
+      "images": [
+        {
+          "image": "imagem-colchao.jpg"
+        }
+      ]
     },
     {
-      "image": "imagem-carpete.jpg",
-      "title": "Carpetes"
+      "title": "Carpetes",
+      "images": [
+        {
+          "image": "imagem-carpete.jpg"
+        }
+      ]
     }
   ],
   "extra": {

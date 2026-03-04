@@ -1,4 +1,4 @@
-// Adiciona rolagem suave (smooth scroll) aos links internos
+// Adiciona rolagem suave (smooth scroll)
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function (e) {
         e.preventDefault();
@@ -13,12 +13,7 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 });
 
 // Animação simples (Intersection Observer)
-const observerOptions = {
-    root: null,
-    rootMargin: '0px',
-    threshold: 0.1
-};
-
+const observerOptions = { root: null, rootMargin: '0px', threshold: 0.1 };
 const observer = new IntersectionObserver((entries, observer) => {
     entries.forEach(entry => {
         if (entry.isIntersecting) {
@@ -29,7 +24,6 @@ const observer = new IntersectionObserver((entries, observer) => {
     });
 }, observerOptions);
 
-// Função para aplicar animação nos cards gerados dinamicamente
 function animateCards() {
     document.querySelectorAll('.benefit-card').forEach((card, index) => {
         card.style.opacity = '0';
@@ -38,19 +32,16 @@ function animateCards() {
         observer.observe(card);
     });
 }
-// Roda para os cards padrões que já vem no HTML
 animateCards();
 
-// -------------------------------------------------------------
-// INTEGRAÇÃO COM O DECAP CMS (Carregando os dados)
-// -------------------------------------------------------------
+// INTEGRAÇÃO DE DADOS
 fetch('conteudo.json')
     .then(response => {
-        if (!response.ok) throw new Error("Ainda não há conteúdo do CMS publicado.");
+        if (!response.ok) throw new Error("Ainda não há conteúdo.");
         return response.json();
     })
     .then(data => {
-        // Atualiza a seção Hero
+        // Hero
         if (data.hero) {
             if (data.hero.bg_image) document.getElementById('hero-section').style.backgroundImage = `url('${data.hero.bg_image}')`;
             if (data.hero.badge) document.getElementById('hero-badge').innerText = data.hero.badge;
@@ -58,10 +49,10 @@ fetch('conteudo.json')
             if (data.hero.text) document.getElementById('hero-text').innerText = data.hero.text;
         }
 
-        // Atualiza os Benefícios
+        // Benefícios
         if (data.benefits && data.benefits.length > 0) {
             const grid = document.getElementById('benefits-grid');
-            grid.innerHTML = ''; // Limpa os hardcoded
+            grid.innerHTML = '';
             data.benefits.forEach((b) => {
                 grid.innerHTML += `
                 <div class="benefit-card">
@@ -70,51 +61,67 @@ fetch('conteudo.json')
                     <p>${b.text}</p>
                 </div>`;
             });
-            animateCards(); // Reaplica a animação nos novos cards
+            animateCards();
         }
 
-        // Atualiza os Serviços com Carrossel Swiper
+        // SERVIÇOS: Grid de cards, cada um com seu próprio carrossel
         if (data.services && data.services.length > 0) {
             const grid = document.getElementById('services-grid');
-            grid.innerHTML = ''; 
-            data.services.forEach(s => {
+            grid.innerHTML = '';
+
+            data.services.forEach((s, index) => {
+                // Prepara as imagens do serviço (agora é uma lista)
+                const images = s.images || (s.image ? [{ image: s.image }] : []);
+                let slidesHTML = '';
+
+                images.forEach(img => {
+                    slidesHTML += `
+                    <div class="swiper-slide">
+                        <img src="${img.image}" alt="${s.title}" class="img-placeholder service-img">
+                    </div>`;
+                });
+
                 grid.innerHTML += `
-                <div class="swiper-slide service-item">
-                    <img src="${s.image}" alt="${s.title}" class="img-placeholder">
+                <div class="service-card">
+                    <div class="swiper swiper-service-${index}">
+                        <div class="swiper-wrapper">
+                            ${slidesHTML}
+                        </div>
+                        <div class="swiper-pagination"></div>
+                        <div class="swiper-button-next"></div>
+                        <div class="swiper-button-prev"></div>
+                    </div>
                     <h3>${s.title}</h3>
                 </div>`;
             });
-            
-            // Inicia o Carrossel de Especialidades
-            new Swiper('.services-swiper', {
-                slidesPerView: 1,
-                spaceBetween: 20,
-                navigation: {
-                    nextEl: '.swiper-button-next',
-                    prevEl: '.swiper-button-prev',
-                },
-                pagination: {
-                    el: '.swiper-pagination',
-                    clickable: true,
-                },
-                breakpoints: {
-                    768: { slidesPerView: 2 },
-                    1024: { slidesPerView: 3 }
-                }
+
+            // Inicia o Swiper para CADA UM dos serviços gerados
+            data.services.forEach((s, index) => {
+                new Swiper(`.swiper-service-${index}`, {
+                    slidesPerView: 1,
+                    spaceBetween: 0,
+                    navigation: {
+                        nextEl: `.swiper-service-${index} .swiper-button-next`,
+                        prevEl: `.swiper-service-${index} .swiper-button-prev`,
+                    },
+                    pagination: {
+                        el: `.swiper-service-${index} .swiper-pagination`,
+                        clickable: true,
+                    }
+                });
             });
         }
 
-        // Atualiza Serviço Extra (Extratora) com Carrossel Swiper
+        // Serviço Extra (Extratora)
         if (data.extra) {
             if (data.extra.title) document.getElementById('extra-title').innerText = data.extra.title;
             if (data.extra.text) document.getElementById('extra-text-content').innerHTML = `<p>${data.extra.text}</p>`;
-            
+
             const extraWrapper = document.getElementById('extra-image-wrapper');
             extraWrapper.innerHTML = '';
-            
-            // Lê o formato novo de lista de imagens, ou cai pro formato antigo de 1 imagem só
-            const extraImages = data.extra.images || (data.extra.image ? [{image: data.extra.image}] : []);
-            
+
+            const extraImages = data.extra.images || (data.extra.image ? [{ image: data.extra.image }] : []);
+
             extraImages.forEach(item => {
                 extraWrapper.innerHTML += `
                 <div class="swiper-slide">
@@ -122,7 +129,6 @@ fetch('conteudo.json')
                 </div>`;
             });
 
-            // Inicia o Carrossel Extra (autoplay)
             new Swiper('.extra-swiper', {
                 slidesPerView: 1,
                 spaceBetween: 10,
@@ -134,4 +140,4 @@ fetch('conteudo.json')
             });
         }
     })
-    .catch(error => console.log("Site carregado com dados do HTML padrão.", error));
+    .catch(error => console.log("Erro ao carregar os dados:", error));

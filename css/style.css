@@ -293,27 +293,60 @@ body {
     color: #777;
 }
 
-/* --- Estilos do Carrossel Swiper --- */
-.services-swiper {
-    padding-bottom: 50px;
-    /* Espaço para as bolinhas (paginação) */
+.extra-text,
+.extra-image {
+    flex: 1;
+    min-width: 0;
+    /* ESSA LINHA É A MÁGICA: impede o Swiper de esticar infinitamente o Flexbox */
 }
 
-.extra-swiper {
+.extratora-img {
     width: 100%;
-    border-radius: 8px;
+    height: 400px;
+    /* Altere a altura para a que achar melhor */
+    object-fit: cover;
+}
+
+/* 2. NOVO VISUAL PARA OS SERVIÇOS (Grid com 3 por linha) */
+.services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+}
+
+.service-card {
+    background: var(--white);
+    border-radius: 10px;
     overflow: hidden;
-    padding-bottom: 40px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    text-align: center;
+    padding-bottom: 20px;
 }
 
-/* Cores dos botões e paginação */
-.swiper-button-next,
-.swiper-button-prev {
-    color: var(--primary-green) !important;
+.service-card h3 {
+    margin-top: 15px;
+    font-size: 1.5rem;
+    color: var(--primary-blue);
 }
 
-.swiper-pagination-bullet-active {
-    background-color: var(--primary-green) !important;
+.service-img {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+    border-radius: 0;
+    /* Remove a borda arredondada das imagens de placeholder para preencher o card */
+    border: none;
+}
+
+.service-card .swiper {
+    padding-bottom: 30px;
+    /* Espaço para as bolinhas de paginação do card */
+}
+
+/* Tamanho das setinhas dentro dos cards menores */
+.service-card .swiper-button-next::after,
+.service-card .swiper-button-prev::after {
+    font-size: 20px;
 }
 
 /* Responsividade */

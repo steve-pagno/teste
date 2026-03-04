@@ -34,8 +34,12 @@ collections:
             name: "services"
             widget: "list"
             fields:
-              - {label: "Imagem do Serviço", name: "image", widget: "image"}
               - {label: "Nome do Serviço", name: "title", widget: "string"}
+              - label: "Imagens do Carrossel"
+                name: "images"
+                widget: "list"
+                fields:
+                  - {label: "Imagem", name: "image", widget: "image"}
               
           - label: "Serviço Extra (Extratora)"
             name: "extra"
