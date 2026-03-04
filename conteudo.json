@@ -1,0 +1,51 @@
+{
+  "hero": {
+    "badge": "Atendimento Humanizado",
+    "title": "Limpeza de estofados, colchões e carpetes na região de São Paulo capital",
+    "text": "Seu sofá, colchão e carpete como novos novamente. Vamos até o seu local com atendimento personalizado.",
+    "bg_image": "imagem-fundo-hero.jpg"
+  },
+  "benefits": [
+    {
+      "icon": "fas fa-credit-card",
+      "title": "Pagamento Facilitado",
+      "text": "Parcele em até 4 vezes sem juros no cartão de crédito."
+    },
+    {
+      "icon": "fas fa-tags",
+      "title": "Desconto Especial",
+      "text": "Garanta 10% de desconto para pagamentos à vista."
+    },
+    {
+      "icon": "fas fa-shield-alt",
+      "title": "Segurança Total",
+      "text": "Você paga só depois do serviço 100% realizado."
+    }
+  ],
+  "services": [
+    {
+      "image": "imagem-sofa.jpg",
+      "title": "Sofás"
+    },
+    {
+      "image": "imagem-colchao.jpg",
+      "title": "Colchões"
+    },
+    {
+      "image": "imagem-carpete.jpg",
+      "title": "Carpetes"
+    }
+  ],
+  "extra": {
+    "title": "Prefere colocar a mão na massa?",
+    "text": "Nós também trabalhamos com o aluguel de extratora profissional. Leve a melhor tecnologia para casa e faça você mesmo a higienização.",
+    "images": [
+      {
+        "image": "imagem-extratora.jpg"
+      },
+      {
+        "image": "imagem-extratora-2.jpg"
+      }
+    ]
+  }
+}

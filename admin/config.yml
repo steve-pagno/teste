@@ -1,0 +1,50 @@
+backend:
+  name: git-gateway
+  branch: main # Mude para 'master' se o seu repositório GitHub usar master
+
+media_folder: "img" # Onde as imagens novas serão salvas
+public_folder: "img" # O caminho que o site usa para ler as imagens
+
+collections:
+  - name: "paginas"
+    label: "Páginas do Site"
+    files:
+      - label: "Página Inicial (Edição)"
+        name: "home"
+        file: "conteudo.json" # O arquivo que o CMS vai gerar
+        fields:
+          - label: "Seção Principal (Hero)"
+            name: "hero"
+            widget: "object"
+            fields:
+              - {label: "Imagem de Fundo", name: "bg_image", widget: "image", required: false}
+              - {label: "Badge (Texto de destaque menor)", name: "badge", widget: "string"}
+              - {label: "Título Principal", name: "title", widget: "string"}
+              - {label: "Texto de Apoio", name: "text", widget: "text"}
+              
+          - label: "Benefícios (Os 3 cards)"
+            name: "benefits"
+            widget: "list"
+            fields:
+              - {label: "Ícone (Classe do FontAwesome, ex: fas fa-tags)", name: "icon", widget: "string"}
+              - {label: "Título", name: "title", widget: "string"}
+              - {label: "Texto", name: "text", widget: "string"}
+              
+          - label: "Nossa Especialidade (Serviços)"
+            name: "services"
+            widget: "list"
+            fields:
+              - {label: "Imagem do Serviço", name: "image", widget: "image"}
+              - {label: "Nome do Serviço", name: "title", widget: "string"}
+              
+          - label: "Serviço Extra (Extratora)"
+            name: "extra"
+            widget: "object"
+            fields:
+              - {label: "Título", name: "title", widget: "string"}
+              - {label: "Texto", name: "text", widget: "text"}
+              - label: "Imagens do Carrossel"
+                name: "images"
+                widget: "list"
+                fields:
+                  - {label: "Imagem", name: "image", widget: "image"}
