@@ -1,28 +1,15 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Painel de Controle - Atuante Clean</title>
-  <link href="config.yml" type="text/yaml" rel="cms-config-url">
+  <link href="/config.yml" type="text/yaml" rel="cms-config-url">
 </head>
+
 <body>
   <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
-  <script>
-    // Se o CMS não encontrar o arquivo, este script força o caminho manual
-    if (window.CMS) {
-      CMS.init({
-        config: {
-          backend: {
-            name: "github",
-            repo: "steve-pagno/teste",
-            branch: "main",
-            base_url: "https://auth-hbay27lxo-steves-projects-a8046767.vercel.app"
-          },
-          load_config_file: false // Desativa a busca automática para evitar o erro 404 na raiz
-        }
-      });
-    }
-  </script>
 </body>
+
 </html>
