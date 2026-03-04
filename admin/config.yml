@@ -1,6 +1,8 @@
 backend:
-  name: git-gateway
-  branch: main # Mude para 'master' se o seu repositório GitHub usar master
+  name: github
+  repo: steve-pagno/teste
+  branch: main
+  base_url: https://teste-83nmzf0kh-steves-projects-a8046767.vercel.app
 
 media_folder: "img" # Onde as imagens novas serão salvas
 public_folder: "img" # O caminho que o site usa para ler as imagens
